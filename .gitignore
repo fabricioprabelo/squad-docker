@@ -12,3 +12,4 @@ www/*
 
 server/*
 !server/.gitkeep
+!server/init.sh
