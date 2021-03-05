@@ -1,0 +1,14 @@
+data/mongo/*
+!data/mongo/.gitkeep
+
+logs/mongo/*
+!logs/mongo/.gitkeep
+
+logs/nginx/*
+!logs/nginx/.gitkeep
+
+www/*
+!www/.gitkeep
+
+server/*
+!server/.gitkeep
