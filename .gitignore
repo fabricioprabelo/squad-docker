@@ -6,10 +6,3 @@ logs/mongo/*
 
 logs/nginx/*
 !logs/nginx/.gitkeep
-
-www/*
-!www/.gitkeep
-
-server/*
-!server/.gitkeep
-!server/init.sh

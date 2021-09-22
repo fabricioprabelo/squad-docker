@@ -1,0 +1,10 @@
+{
+    "type": "mongodb",
+    "host": "mongo",
+    "port": 27017,
+    "database": "squad",
+    "username": "squad",
+    "password": "a1s2d3f4m0n9b8v7",
+    "useUnifiedTopology": true,
+    "entities": ["build/types/*.js"]
+}

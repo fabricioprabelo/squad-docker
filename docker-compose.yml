@@ -1,69 +1,72 @@
 version: "3"
 networks:
-  web:
-  database:
+    web:
+    database:
 services:
-  # Databases
-  mongo:
-    image: mongo:latest
-    container_name: Mongo
-    restart: on-failure
-    volumes:
-      # Volume de dados
-      - ./data/mongo:/data/db
-      # Volume de log
-      - ./logs/mongo:/var/log/mongodb
-      # Volume de scripts
-      - ./scripts/mongo:/docker-entrypoint-initdb.d
-    networks:
-      - database
-    environment:
-      MONGO_INITDB_DATABASE: squad
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: jxIgWczIREWQmgkzWAmsy26JJKuNLVnw
-    ports:
-      - 27027:27017
-  node:
-    image: node:lts
-    container_name: Node
-    restart: on-failure
-    environment:
-      - NODE_ENV=production
-    working_dir: /home/node/app
-    volumes:
-      # Servidor
-      - ./server:/home/node/app
-    ports:
-      - 4000:4000
-    expose:
-      - 4000
-    networks:
-      - web
-      - database
-    depends_on:
-      - mongo
-    links:
-      - mongo
-    command: "/home/node/app/init.sh"
-  nginx:
-    image: nginx:latest
-    container_name: Nginx
-    restart: on-failure
-    volumes:
-      # Site
-      - ./www:/www
-      # Configuração do proxy reverso
-      - ./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf
-      # Volume de logs
-      - ./logs/nginx:/var/log/nginx
-    ports:
-      - 443:443
-      - 80:80
-    networks:
-      - web
-      - database
-    depends_on:
-      - mongo
-      - node
-    links:
-      - node
+    # Databases
+    mongo:
+        image: mongo:latest
+        container_name: Mongo
+        restart: on-failure
+        volumes:
+            # Volume de dados
+            - ./data/mongo:/data/db
+            # Volume de log
+            - ./logs/mongo:/var/log/mongodb
+            # Volume de scripts
+            - ./scripts/mongo:/docker-entrypoint-initdb.d
+        networks:
+            - database
+        environment:
+            MONGO_INITDB_DATABASE: squad
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: jxIgWczIREWQmgkzWAmsy26JJKuNLVnw
+        ports:
+            - 27117:27017
+    node:
+        image: node:lts
+        container_name: Node
+        restart: on-failure
+        environment:
+            - NODE_ENV=production
+        working_dir: /home/node/app
+        volumes:
+            # Servidor
+            - ./server:/home/node/app
+            - ./www:/www
+        ports:
+            - 4000:4000
+            - 4001:4001
+        expose:
+            - 4000
+            - 4001
+        networks:
+            - web
+            - database
+        depends_on:
+            - mongo
+        links:
+            - mongo
+        command: "/home/node/app/init.sh"
+    nginx:
+        image: nginx:latest
+        container_name: Nginx
+        restart: on-failure
+        volumes:
+            # Site
+            - ./www:/www
+            # Configuração do proxy reverso
+            - ./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf
+            # Volume de logs
+            - ./logs/nginx:/var/log/nginx
+        ports:
+            - 4431:443
+            - 8001:80
+        networks:
+            - web
+            - database
+        depends_on:
+            - mongo
+            - node
+        links:
+            - node
