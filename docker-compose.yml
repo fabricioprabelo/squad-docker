@@ -36,10 +36,8 @@ services:
             - ./www:/www
         ports:
             - 4000:4000
-            - 4001:4001
         expose:
             - 4000
-            - 4001
         networks:
             - web
             - database
@@ -60,7 +58,6 @@ services:
             # Volume de logs
             - ./logs/nginx:/var/log/nginx
         ports:
-            - 4431:443
             - 8001:80
         networks:
             - web
