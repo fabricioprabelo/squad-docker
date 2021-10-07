@@ -2,7 +2,6 @@ import { createContext, useState, ReactNode } from "react";
 import User from "../models/User";
 import jwtDecode from "jwt-decode";
 import {
-  TOKEN_SECRET,
   GRAPHQL_SERVER,
   GRAPHQL_SERVER_PATH,
   IS_DEVELOPMENT,

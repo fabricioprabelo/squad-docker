@@ -5,7 +5,6 @@ export const IS_PRODUCTION = ENVIRONMENT === "production";
 export const IS_DEVELOPMENT =
   ENVIRONMENT === "test" || ENVIRONMENT === "development";
 export const SITE_NAME = process.env.REACT_APP_SITE_NAME || "";
-export const TOKEN_SECRET = process.env.REACT_APP_TOKEN_SECRET || "";
 export const RECORDS_PER_PAGE =
   Number(process.env.REACT_APP_RECORDS_PER_PAGE) || 15;
 export const GRAPHQL_SERVER =
