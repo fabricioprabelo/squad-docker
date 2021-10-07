@@ -7,7 +7,7 @@ services:
     mongo:
         image: mongo:latest
         container_name: Mongo
-        restart: on-failure
+        restart: always
         volumes:
             # Volume de dados
             - ./data/mongo:/data/db
@@ -26,10 +26,11 @@ services:
     node:
         image: node:lts
         container_name: Node
-        restart: on-failure
+        restart: always
         environment:
             - NODE_ENV=production
         working_dir: /home/node/app
+        command: /home/node/app/init.sh
         volumes:
             # Servidor
             - ./server:/home/node/app
@@ -45,11 +46,10 @@ services:
             - mongo
         links:
             - mongo
-        command: "/home/node/app/init.sh"
     nginx:
         image: nginx:latest
         container_name: Nginx
-        restart: on-failure
+        restart: always
         volumes:
             # Site
             - ./www:/www
@@ -58,7 +58,7 @@ services:
             # Volume de logs
             - ./logs/nginx:/var/log/nginx
         ports:
-            - 8001:80
+            - 8000:80
         networks:
             - web
             - database
